@@ -1,14 +1,14 @@
 import bcrypt
-import enum
+import aenum
 from ticket_manager.database import db
 
-class StatusEnum(enum.Enum):
+class StatusEnum(aenum.Enum):
     Open = 1
     In_Progress = 2
     Completed = 3
     Rejected = 4
 
-class UrgencyEnum(enum.Enum):
+class UrgencyEnum(aenum.Enum):
     Low = 1
     Mid = 2
     High = 3
