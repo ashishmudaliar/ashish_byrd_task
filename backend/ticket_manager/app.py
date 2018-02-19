@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_cors import CORS
+
 from ticket_manager.database import db
 from ticket_manager import models
+from ticket_manager.authentication_handlers import auth
 
 
 def create_app():
@@ -9,6 +11,7 @@ def create_app():
     app.config.from_envvar('CONFIG')
     db.init_app(app)
     CORS(app)
+    app.register_blueprint(auth, url_prefix='/auth')
     return app
 
 def create_app_for_db_connection():
