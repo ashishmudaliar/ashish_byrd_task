@@ -5,7 +5,9 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), ".."))
 
 from ticket_manager.app import create_app
-from tests.utils import TEST_PORT
+# from tests.utils import TEST_PORT
+
+TEST_PORT = 9000
 
 if __name__ == '__main__':
     sio, app = create_app()

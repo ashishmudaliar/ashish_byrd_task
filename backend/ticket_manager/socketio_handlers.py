@@ -9,7 +9,6 @@ def create_sio(request_handler):
     @sio.on('connect')
     def connect():
         logging.info('SocketIO Connect')
-        print(session)
         statusObject[session['username']] = request.sid
         return 'username' in session
 
