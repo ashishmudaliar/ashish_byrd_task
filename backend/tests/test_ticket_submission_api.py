@@ -35,7 +35,7 @@ class TestTicketSubmissionAPI(unittest.TestCase):
             self.test_client.post('api/tickets/submit-ticket',
                                   data=testticket_data)
             ticket = models.Ticket.query.one()
-            self.assertEqual(ticket.urgency, models.UrgencyEnum.Low)
+            self.assertEqual(ticket.urgency, 'Low')
 
     def test_ticket_submit_no_email(self):
         with self.app.app_context():
