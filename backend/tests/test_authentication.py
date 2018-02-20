@@ -10,7 +10,7 @@ class TestAuthentication(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.app = create_app()
+        cls.app = create_app()[1]
 
         cls.test_user = {'username': 'upload',
                          'password': 'test'}

@@ -10,7 +10,7 @@ class TestTicketSubmissionAPI(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.app = create_app()
+        cls.app = create_app()[1]
 
     def setUp(self):
 
