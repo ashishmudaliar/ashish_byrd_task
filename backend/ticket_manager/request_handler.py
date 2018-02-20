@@ -43,40 +43,50 @@ class RequestHandler:
         for ticket in tickets:
             ticket_data = {}
             ticket_data['id'] = ticket.id
+            print(ticket.name)
+            ticket_data['name'] = ticket.name
+            ticket_data['email'] = ticket.email
             ticket_data['subject'] = ticket.subject
             ticket_data['status'] = ticket.status
             ticket_data['urgency'] = ticket.urgency
-            ticket_data['creation_date'] = ticket.creation_date
+            ticket_data['creation_date'] = ticket.creation_date.strftime('%Y-%m-%dT%H:%M:%SZ')
             ticket_list.append(ticket_data)
         response = {}
         response['jsons'] = ticket_list
         return response
 
-    def get_ticket_data(self,data,username):
-        print('get_ticket_data')
+    def get_ticket_details(self,ticket_id):
         ticket_data = {}
-        ticket_id = data['ticket_id']
         ticket = models.Ticket.query.filter(models.Ticket.id == ticket_id).first()
         ticket_data['id'] = ticket.id
         ticket_data['subject'] = ticket.subject
         ticket_data['status'] = ticket.status
         ticket_data['urgency'] = ticket.urgency
-        ticket_data['creation_date'] = ticket.creation_date
+        ticket_data['text'] = ticket.message
+        ticket_data['email'] = ticket.email
+        ticket_data['name'] = ticket.name
+        ticket_data['creation_date'] = ticket.creation_date.strftime('%Y-%m-%dT%H:%M:%SZ')
         comments = (
                 self.session.query(
-                models.Comment,models.UserData.username)
+                models.Comment,models.UserData)
                 .filter(models.Comment.ticket_id == ticket.id)
-                .join(models.Comment.user_id == models.UserData.id)
+                .join(models.UserData,models.Comment.user_id == models.UserData.id)
                 .all())
         comment_list = []
         for comment in comments:
             comment_object = {}
             comment_object['id'] = comment[0].id
             comment_object['text'] = comment[0].text
-            comment_object['date'] = comment[0].comment_date
-            comment_object['user'] = comment[1]
+            comment_object['date'] = comment[0].comment_date.strftime('%Y-%m-%dT%H:%M:%SZ')
+            comment_object['user'] = comment[1].username
             comment_list.append(comment_object)
         ticket_data['comments'] = comment_list
+        return ticket_data
+
+    def get_ticket_data(self,data,username):
+        print('get_ticket_data')
+        ticket_id = data['ticket_id']
+        ticket_data = self.get_ticket_details(ticket_id)
         response = {}
         response['jsons'] = ticket_data
         return response
@@ -113,10 +123,11 @@ class RequestHandler:
             user_id=user.id,
             text=text,
             comment_date=datetime.datetime.now())
-        db.session.add(comment)
-        db.session.commit()
+        self.session.merge(comment)
+        self.session.commit()
         response = {}
-        response['jsons'] = 'Comment added succesfully'
+        ticket_data = self.get_ticket_details(ticket_id)
+        response['jsons'] = ticket_data
         return response
 
     # allowed requests
