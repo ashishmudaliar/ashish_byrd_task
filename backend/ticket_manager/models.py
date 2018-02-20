@@ -1,17 +1,5 @@
 import bcrypt
-import aenum
 from ticket_manager.database import db
-
-class StatusEnum(aenum.Enum):
-    Open = 1
-    In_Progress = 2
-    Completed = 3
-    Rejected = 4
-
-class UrgencyEnum(aenum.Enum):
-    Low = 1
-    Mid = 2
-    High = 3
 
 class UserData(db.Model):
     __tablename__ = "user_data"
@@ -35,9 +23,9 @@ class Ticket(db.Model):
     name = db.Column(db.String)
     email = db.Column(db.String)
     subject = db.Column(db.String)
-    status = db.Column(db.Enum(StatusEnum),nullable=False)
+    status = db.Column(db.String)
     message = db.Column(db.Text)
-    urgency = db.Column(db.Enum(UrgencyEnum))
+    urgency = db.Column(db.String)
     creation_date = db.Column(db.DateTime)
 
 class Comment(db.Model):

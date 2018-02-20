@@ -86,7 +86,7 @@ class RequestHandler:
         ticket_id = data['ticket_id']
         urgency = data['urgency']
         ticket = models.Ticket.query.filter(models.Ticket.id == ticket_id).first()
-        ticket.urgency = models.UrgencyEnum[urgency]
+        ticket.urgency = urgency
         self.session.commit()
         response = {}
         response['jsons'] = 'Urgency updated'
@@ -97,7 +97,7 @@ class RequestHandler:
         ticket_id = data['ticket_id']
         status = data['status']
         ticket = models.Ticket.query.filter(models.Ticket.id == ticket_id).first()
-        ticket.status = models.StatusEnum[status]
+        ticket.status = status
         self.session.commit()
         response = {}
         response['jsons'] = 'Status updated'

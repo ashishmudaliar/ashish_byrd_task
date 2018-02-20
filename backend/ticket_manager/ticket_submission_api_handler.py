@@ -44,8 +44,8 @@ def create_api(app):
                 email=email,
                 subject=subject,
                 message=message,
-                urgency=models.UrgencyEnum[urgency],
-                status=models.StatusEnum.Open,
+                urgency=urgency,
+                status="Open",
                 creation_date=datetime.datetime.now()
             )
             db.session.add(ticket)
