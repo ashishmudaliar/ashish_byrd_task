@@ -27,7 +27,8 @@ class TestTicketSubmissionAPI(unittest.TestCase):
     def test_valid_ticket_submit(self):
 
         with self.app.app_context():
-            testticket_data = {'email': 'ashish@xyz.de',
+            testticket_data = {'name': 'Ashish',
+                             'email': 'ashish@xyz.de',
                              'subject': 'Test Ticket Subject',
                              'message': 'Test Ticket Message',
                              'urgency': 'Low'}
@@ -38,7 +39,8 @@ class TestTicketSubmissionAPI(unittest.TestCase):
 
     def test_ticket_submit_no_email(self):
         with self.app.app_context():
-            testticket_data = {'subject': 'Test Ticket Subject',
+            testticket_data = {'name': 'Ashish',
+                             'subject': 'Test Ticket Subject',
                              'message': 'Test Ticket Message',
                              'urgency': 'Low'}
             self.test_client.post('api/tickets/submit-ticket',
@@ -48,7 +50,8 @@ class TestTicketSubmissionAPI(unittest.TestCase):
 
     def test_ticket_submit_no_subject(self):
         with self.app.app_context():
-            testticket_data = {'email': 'ashish@xyz.de',
+            testticket_data = {'name': 'Ashish',
+                             'email': 'ashish@xyz.de',
                              'message': 'Test Ticket Message',
                              'urgency': 'Low'}
             self.test_client.post('api/tickets/submit-ticket',
@@ -58,7 +61,8 @@ class TestTicketSubmissionAPI(unittest.TestCase):
 
     def test_ticket_submit_no_message(self):
         with self.app.app_context():
-            testticket_data = {'subject': 'Test Ticket Subject',
+            testticket_data = {'name': 'Ashish',
+                             'subject': 'Test Ticket Subject',
                              'email': 'ashish@xyz.de',
                              'urgency': 'Low'}
             self.test_client.post('api/tickets/submit-ticket',
@@ -68,7 +72,8 @@ class TestTicketSubmissionAPI(unittest.TestCase):
 
     def test_ticket_submit_no_urgency(self):
         with self.app.app_context():
-            testticket_data = {'subject': 'Test Ticket Subject',
+            testticket_data = {'name': 'Ashish',
+                             'subject': 'Test Ticket Subject',
                              'message': 'Test Ticket Message',
                              'email': 'ashish@xyz.de'}
             self.test_client.post('api/tickets/submit-ticket',

@@ -32,6 +32,7 @@ class UserData(db.Model):
 class Ticket(db.Model):
     __tablename__ = "ticket"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String)
     email = db.Column(db.String)
     subject = db.Column(db.String)
     status = db.Column(db.Enum(StatusEnum),nullable=False)

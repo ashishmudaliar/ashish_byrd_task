@@ -16,7 +16,8 @@ def before_request():
 
     if 'username' not in session and request.endpoint != 'auth.login':
         logging.info('Access denied')
-        abort(401)
+        return "Incorrect Username or Password", 401, {"Access-Control-Allow-Credentials": "true"}
+
 
 
 @auth.route("/test")
@@ -35,7 +36,7 @@ def login():
         return "OK", 200, {"Access-Control-Allow-Credentials": "true"}
     else:
         logging.info("Login denied for user = {}".format(username))
-        abort(401)
+        return "Incorrect Username or Password", 401, {"Access-Control-Allow-Credentials": "true"}
 
 @auth.route('/logout', methods=['POST'])
 def logout():

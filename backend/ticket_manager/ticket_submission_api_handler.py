@@ -14,6 +14,8 @@ def create_api(app):
         return True
 
     def validate(data):
+        if not validate_text(data['name']):
+            return False
         if not validate_text(data['subject']):
             return False
         if not validate_text(data['message']):
@@ -29,6 +31,7 @@ def create_api(app):
         try:
             if not validate(request.form):
                 return "Please fill all the columns", 400, {"Access-Control-Allow-Credentials": "true"}
+            name = request.form['name']
             email = request.form['email']
             subject = request.form['subject']
             message = request.form['message']
@@ -37,6 +40,7 @@ def create_api(app):
             return "Please fill all the columns", 400, {"Access-Control-Allow-Credentials": "true"}
         else:
             ticket = models.Ticket(
+                name=name,
                 email=email,
                 subject=subject,
                 message=message,
