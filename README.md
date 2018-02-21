@@ -112,4 +112,4 @@ Implement frontend testing.
 Allow employees to get only tickets with a certain urgency and status etc.
 
 # Live Version
-The project is currently deployed on AWS EC2 server and can be viewed [here](ec2-18-195-233-45.eu-central-1.compute.amazonaws.com)
+The project is currently deployed on AWS EC2 server and can be viewed [here](http://ec2-18-195-233-45.eu-central-1.compute.amazonaws.com)
