@@ -6,6 +6,9 @@
 - [Setting Up The Project](#setting-up-the-project)
 - [Run The Project](#run-the-project)
 - [Run Test Cases](#run-test-cases)
+- [Design Decisions](#design-decisons)
+- [Future Improvements](#future-improvements)
+- [Live Version](#live-version)
 
 # About The Project
 
@@ -48,7 +51,7 @@ This will run the backend server on port 7000. This uses the python virtual envi
 
 ## Run the Frontend
 
-Please install nodejs and npm. The tutorial for this can be found [here] (https://docs.npmjs.com/getting-started/installing-node)
+Please install nodejs and npm. The tutorial for this can be found [here](https://docs.npmjs.com/getting-started/installing-node)
 
 ### cd frontend
 
@@ -71,3 +74,42 @@ The test cases are included in the folder backend/tests. The unittest module of 
 
 This runs all the test cases in the python virtualenv.
 
+# Design Decisions
+
+The technologies used in the project included:-
+
+### Python2.7
+
+Python 2.7 was used since it was one of the requirements metioned in the task description.
+
+### ReactJS
+
+The ReactJS library provides a faster alternative to normal Javascript since it uses a Virtual DOM, only rendering the part of the DOM in which a change has been detected. You can read more about that [here](https://reactjs.org/)
+
+### PostGreSQL And SQL Alchemy
+
+PostgreSQL provides a fast relational database system and SQL Alchemy is the python module used to access the Postgresql database. These two are also part of the stack used at Byrd and hence, were used for this project.
+
+### SocketIO
+
+Web sockets provide a secure 2-way channel between the frontend and backend and hence, were used in this project for logged in users. Flask_SocketIO library was used to implement this with Python
+
+# Future Improvements
+
+Some future enhancements which were not implemented currently include:-
+
+## Dockerize the system
+
+Create Docker image of the project for easy deployment on any system.
+
+## Add test cases
+
+Add test cases for border conditiosn like llength of message,invalid email etc. for the backend.
+Implement frontend testing.
+
+## Add more options for the user
+
+Allow employees to get only tickets with a certain urgency and status etc.
+
+# Live Version
+The project is currently deployed on AWS EC2 server and can be viewed [here](ec2-18-195-233-45.eu-central-1.compute.amazonaws.com)
