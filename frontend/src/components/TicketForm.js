@@ -107,7 +107,7 @@ export default class TicketForm extends React.Component {
               <Form.Field control={Input} label="Name" onChange={this.handleNameChange} />
             </Form.Group>
             <Form.Group>
-              <Form.Field control={Dropdown} options={dropdown_options} label="Urgency" onChange={this.handleUrgencyChange} />
+              <Form.Field control={Dropdown} options={dropdown_options} fluid selection label="Urgency" onChange={this.handleUrgencyChange} />
             </Form.Group>
             <Form.Group>
               <Form.Field control={Input} label="Subject" onChange={this.handleSubjectChange} />

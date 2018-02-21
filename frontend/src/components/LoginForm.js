@@ -75,6 +75,11 @@ export default class LoginForm extends React.Component {
                 Log in
               </Button>
             </Form.Group>
+            <Form.Group>
+              <Button style={{ margin: 'auto' }} as={Link} to='/'>
+                Add Ticket
+              </Button>
+            </Form.Group>
           </Form>
         </Segment>
       </div>
