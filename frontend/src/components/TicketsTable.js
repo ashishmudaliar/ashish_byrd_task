@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Segment, Header,Button } from 'semantic-ui-react';
+import AuthService from '../services/AuthService';
 import { Link } from 'react-router-dom';
 import Pagination from './Pagination';
 
@@ -55,6 +56,10 @@ export default class TicketsTable extends React.Component {
     }
   }
 
+  handleSignOutClick = () => {
+    AuthService.logout();
+  }
+
   handleSort = clickedColumn => () => {
     const { column, direction } = this.state;
     if (column !== clickedColumn) {
@@ -105,56 +110,66 @@ export default class TicketsTable extends React.Component {
     const { column, direction, tickets } = this.state;
 
     return (
-      <Segment style={{ padding: 20 }}>
-        <Header as='h1' style={styles.header}>Tickets</Header>
-        <div style={styles.verticalBlock} />
-        <div>
-          <div style={styles.pagination}>
-            <Pagination
-              page={this.props.page}
-              itemsPerPage={this.props.itemsPerPage}
-              numberOfPages={this.props.numberOfPages}
-              onPageChange={this.props.onPageChange}
-              onItemsPerPageChange={this.props.onItemsPerPageChange}
-            />
+      <div>
+
+        <Button onClick={this.handleSignOutClick}>
+          <Button.Content hidden>
+            <span style={{ fontWeight: 200 }}>Log out</span>
+          </Button.Content>
+        </Button>
+
+
+        <Segment style={{ padding: 20 }}>
+          <Header as='h1' style={styles.header}>Tickets</Header>
+          <div style={styles.verticalBlock} />
+          <div>
+            <div style={styles.pagination}>
+              <Pagination
+                page={this.props.page}
+                itemsPerPage={this.props.itemsPerPage}
+                numberOfPages={this.props.numberOfPages}
+                onPageChange={this.props.onPageChange}
+                onItemsPerPageChange={this.props.onItemsPerPageChange}
+              />
+            </div>
+            <Table textAlign="center" sortable celled>
+              <Table.Header >
+                <Table.Row>
+                  {headerMap.map(item => (
+                    <Table.HeaderCell
+                      key={item.name}
+                      sorted={column === item.key ? direction : null}
+                      onClick={this.handleSort(item.key)}
+                    >
+                      {item.name}
+                    </Table.HeaderCell>
+                  ))}
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {tickets.map((ticket) => {
+                  const date = new Date(ticket.creation_date);
+                  const dateString = date.toString().slice(4, 24);
+                  return (
+                    <Table.Row key={ticket.id}>
+                      <Table.Cell>{ticket.id}</Table.Cell>
+                      <Table.Cell>{ticket.name}</Table.Cell>
+                      <Table.Cell>{ticket.email}</Table.Cell>
+                      <Table.Cell>{ticket.subject}</Table.Cell>
+                      <Table.Cell>{dateString}</Table.Cell>
+                      <Table.Cell>{ticket.urgency}</Table.Cell>
+                      <Table.Cell>{ticket.status}</Table.Cell>
+                      <Table.Cell><Button style={{ margin: 'auto' }} as={Link} to={'/ticketdetails/'+ticket.id}>
+                        View Ticket
+                      </Button></Table.Cell>
+                    </Table.Row>
+                  );
+                })}
+              </Table.Body>
+            </Table>
           </div>
-          <Table textAlign="center" sortable celled>
-            <Table.Header >
-              <Table.Row>
-                {headerMap.map(item => (
-                  <Table.HeaderCell
-                    key={item.name}
-                    sorted={column === item.key ? direction : null}
-                    onClick={this.handleSort(item.key)}
-                  >
-                    {item.name}
-                  </Table.HeaderCell>
-                ))}
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {tickets.map((ticket) => {
-                const date = new Date(ticket.creation_date);
-                const dateString = date.toString().slice(4, 24);
-                return (
-                  <Table.Row key={ticket.id}>
-                    <Table.Cell>{ticket.id}</Table.Cell>
-                    <Table.Cell>{ticket.name}</Table.Cell>
-                    <Table.Cell>{ticket.email}</Table.Cell>
-                    <Table.Cell>{ticket.subject}</Table.Cell>
-                    <Table.Cell>{dateString}</Table.Cell>
-                    <Table.Cell>{ticket.urgency}</Table.Cell>
-                    <Table.Cell>{ticket.status}</Table.Cell>
-                    <Table.Cell><Button style={{ margin: 'auto' }} as={Link} to={'/ticketdetails/'+ticket.id}>
-                      View Ticket
-                    </Button></Table.Cell>
-                  </Table.Row>
-                );
-              })}
-            </Table.Body>
-          </Table>
-        </div>
-      </Segment>
+        </Segment>
+      </div>
     );
   }
 }

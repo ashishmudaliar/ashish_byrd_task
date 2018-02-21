@@ -18,10 +18,10 @@ class TicketPage extends React.Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    const { authenticated } = this.props.auth;
-    if (authenticated !== nextProps.auth.authenticated) {
+    // const { authenticated } = this.props.auth;
+    // if (authenticated !== nextProps.auth.authenticated) {
       this.authenticationCheck(nextProps);
-    }
+    // }
   }
 
   getTickets = () => {

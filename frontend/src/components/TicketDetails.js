@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import APIService from '../services/APIService';
+import AuthService from '../services/AuthService';
 import { Card, Comment, Dropdown, Header, Form, Button } from 'semantic-ui-react';
 
 const urgency_dropdown_options = [{
@@ -79,6 +80,11 @@ export default class TicketDetails extends React.Component {
 
   }
 
+  handleSignOutClick = () => {
+    AuthService.logout();
+  }
+
+
   render = () => {
     const { creationDate,
       id,
@@ -93,6 +99,11 @@ export default class TicketDetails extends React.Component {
     const dateString = date.toString().slice(4, 24);
     return (
       <div>
+          <Button onClick={this.handleSignOutClick}>
+            <Button.Content hidden>
+              <span style={{ fontWeight: 200 }}>Log out</span>
+            </Button.Content>
+          </Button>
         <Card>
           <Card.Content header={subject} />
           <Card.Content header={name} />
