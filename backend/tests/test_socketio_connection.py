@@ -25,7 +25,7 @@ class ServerProcess:
             run_server_script = "run_test_server.py"
         else:
             run_server_script = "tests/run_test_server.py"
-        self.p = subprocess.Popen(["python", run_server_script])
+        self.p = subprocess.Popen(["env/bin/python", run_server_script])
 
     def terminate(self):
         self.p.terminate()
